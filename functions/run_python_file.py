@@ -46,7 +46,7 @@ def run_python_file(working_directory, file_path, args=None):
 
 schema_run_python_file = types.FunctionDeclaration(
     name="run_python_file",
-    description="Run python file in a specified directory relative to the working directory",
+    description="Execute Python files with optional arguments in a specified directory relative to the working directory, ",
     parameters=types.Schema(
         type=types.Type.OBJECT,
         properties={
