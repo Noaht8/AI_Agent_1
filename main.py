@@ -6,7 +6,7 @@ from google import genai
 from google.genai import types
 
 from prompts import system_prompt
-from call_function import available_functions
+from call_function import available_functions, call_function
 
 
 def main():
@@ -45,7 +45,22 @@ def main():
     print("Response:")
     if response.function_calls != None:
         for function_call in response.function_calls:
-            print(f"Calling function: {function_call.name}({function_call.args})")
+            function_call_result = call_function(function_call)
+            if function_call_result.parts = []:
+                raise Exception("types.Content object is Empty")
+            if function_call_result.parts[0].function_response == None:
+                raise Exception("Function Response Property is None")
+            if function_call_result.parts[0].function_response.response == None:
+                raise Exception("None Response")
+
+
+            function_result = []
+            function_result.append(function_call_result.parts[0])
+            if verbose:
+                print(f"-> {function_call_result.parts[0].function_response.response}")
+
+
+            # print(f"Calling function: {function_call.name}({function_call.args})")
     else:
         print(response.text)
 
