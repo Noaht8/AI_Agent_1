@@ -3,7 +3,7 @@ from config import MAX_CHARS
 from google.genai import types
 
 
-def get_file_content(working_directory, file_path):
+def get_file_content(working_directory, file_path, directory=None):
     try:
         working_dir_abs = os.path.abspath(working_directory)
         target_dir = os.path.normpath(os.path.join(working_dir_abs, file_path))
@@ -31,18 +31,18 @@ def get_file_content(working_directory, file_path):
 
 schema_get_file_content = types.FunctionDeclaration(
     name="get_file_content",
-    description="Read file contents in a specified directory relative to the working directory",
+    description=f"Retrieves the content (at most {MAX_CHARS} characters) of a specified file within the working directory",
     parameters=types.Schema(
         type=types.Type.OBJECT,
         properties={
-            "directory": types.Schema(
+            "file_path": types.Schema(
                 type=types.Type.STRING,
-                description="Directory path to list files from, relative to the working directory (default is the working directory itself)",
+                description="Path to the file to read, relative to the working directory",
             ),
         },
+        required=["file_path"],
     ),
 )
-
 
 
 

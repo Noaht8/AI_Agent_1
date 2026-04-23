@@ -43,10 +43,12 @@ def main():
         print(f"Response tokens: {response.usage_metadata.candidates_token_count}")
 
     print("Response:")
+    function_results = []
+
     if response.function_calls != None:
         for function_call in response.function_calls:
-            function_call_result = call_function(function_call)
-            if function_call_result.parts = []:
+            function_call_result = call_function(function_call, args.verbose)
+            if function_call_result.parts == []:
                 raise Exception("types.Content object is Empty")
             if function_call_result.parts[0].function_response == None:
                 raise Exception("Function Response Property is None")
@@ -54,9 +56,8 @@ def main():
                 raise Exception("None Response")
 
 
-            function_result = []
-            function_result.append(function_call_result.parts[0])
-            if verbose:
+            function_results.append(function_call_result.parts[0])
+            if args.verbose:
                 print(f"-> {function_call_result.parts[0].function_response.response}")
 
 
